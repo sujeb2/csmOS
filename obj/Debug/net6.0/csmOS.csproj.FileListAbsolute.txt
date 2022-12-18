@@ -1,0 +1,12 @@
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\bin\Debug\net6.0\csmOS.deps.json
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\bin\Debug\net6.0\csmOS.dll
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\bin\Debug\net6.0\csmOS.pdb
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\csmOS.csproj.AssemblyReference.cache
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\csmOS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\csmOS.AssemblyInfoInputs.cache
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\csmOS.AssemblyInfo.cs
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\csmOS.csproj.CoreCompileInputs.cache
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\csmOS.dll
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\refint\csmOS.dll
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\csmOS.pdb
+C:\Users\sdbb2\Desktop\repos\csmOS\csmOS\obj\Debug\net6.0\ref\csmOS.dll
