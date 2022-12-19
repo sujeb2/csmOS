@@ -58,9 +58,9 @@ namespace csmOS
 
         protected override void Run()
         {
-            ulong fullRam = Cosmos.Core.GCImplementation.GetAvailableRAM();
+            ulong fullRam = Cosmos.Core.CPU.GetAmountOfRAM();
             ulong alivRam = Cosmos.Core.GCImplementation.GetAvailableRAM();
-            ulong usedRam = fullRam - alivRam;
+            ulong usedRam = Cosmos.Core.GCImplementation.GetUsedRAM();
             string cpu = Cosmos.Core.CPU.GetCPUBrandString();
             ulong cpuuptime = Cosmos.Core.CPU.GetCPUUptime();
             long cpuspeed = Cosmos.Core.CPU.GetCPUCycleSpeed();
@@ -381,7 +381,7 @@ namespace csmOS
                         Console.WriteLine("CPU: " + cpuvendor + " " + cpu + " @ " + cpuspeed);
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("RAM: " + alivRam + "mb" + " / " + fullRam + "mb");
+                        Console.WriteLine("RAM: " + alivRam + "mb" + " / " + fullRam + "mb" + ", Used RAM: " + usedRam + "b");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Uptime: " + cpuuptime);
