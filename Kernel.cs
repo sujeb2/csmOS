@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Sys = Cosmos.System;
 using System.IO;
 using csmOS;
 using Cosmos.Core;
+using System.Security.Cryptography;
 
 namespace csmOS
 {
@@ -12,14 +13,29 @@ namespace csmOS
     {
         protected override void BeforeRun()
         {
-            var fs = new Sys.FileSystem.CosmosVFS();
-            Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
-            long availableSpace = Sys.FileSystem.VFS.VFSManager.GetAvailableFreeSpace("0:\\");
+            String err = "[ERROR]: ";
+            String okk = "[OK]: ";
+
+            try
+            {
+                var fs = new Sys.FileSystem.CosmosVFS();
+                Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
+                long availableSpace = Sys.FileSystem.VFS.VFSManager.GetAvailableFreeSpace("0:\\");
+                Console.WriteLine(okk + "File system loaded.");
+            }
+            catch (Exception e)
+            {
+                Console.Beep();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(err + e.ToString());
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             String ok = "[OK]: ";
             String inf = "[INFO]: ";
             String er = "[ERROR]: ";
             ulong fullRam = Cosmos.Core.GCImplementation.GetAvailableRAM();
             ulong alivRam = Cosmos.Core.GCImplementation.GetAvailableRAM();
+            var ver = 1.1;
 
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -28,16 +44,13 @@ namespace csmOS
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(ok + "Kernel Loaded.");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(er + "'usrname' command failed to load.");
-            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(inf + fullRam + "MB OK.");
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("                                  //   ) ) //   ) ) ");
             Console.WriteLine("    ___      ___      _   __     //   / / ((        ");
             Console.WriteLine("  //   ) ) ((   ) ) // ) )  ) ) //   / /    \\      ");
             Console.WriteLine(" //         \\ \\    // / /  / / //   / /       ) )");
-            Console.WriteLine("((____   //   ) ) // / /  / / ((___/ / ((___ / /      1.0");
+            Console.WriteLine("((____   //   ) ) // / /  / / ((___/ / ((___ / /      " + ver);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("  Open-source TUI OS");
             Console.WriteLine("=========================================================");
@@ -60,7 +73,7 @@ namespace csmOS
             String ok = "[OK]: ";
             String inf = "[INFO]: ";
 
-            Console.Write(username + "@0:\\" +"# > ");
+            Console.Write(username + "@" + hostname +"# > ");
             string command = Console.ReadLine();
             switch (command)
             {
@@ -115,6 +128,9 @@ namespace csmOS
                         Console.WriteLine("drm - make directory");
                         Console.WriteLine("color - changes background color");
                         Console.WriteLine("debug - shows pc info");
+                        Console.WriteLine("date - shows current date");
+                        Console.WriteLine("pause - pause system");
+                        Console.WriteLine("power - another way to shutdown, restart your system");
                         break;
                     }
                 case "clear":
@@ -359,10 +375,17 @@ namespace csmOS
                     }
                 case "debug":
                     {
+                        Console.WriteLine("");
                         Console.WriteLine(username + "@" + hostname);
-                        Console.WriteLine("Used Ram: " + usedRam + "mb");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("CPU: " + cpuvendor + " " + cpu + " @ " + cpuspeed);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("RAM: " + alivRam + "mb" + " / " + fullRam + "mb");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Uptime: " + cpuuptime);
+                        Console.ForegroundColor = ConsoleColor.White;
                         break;
                     }
                 case "drm":
@@ -414,10 +437,38 @@ namespace csmOS
                         Console.WriteLine("THANK YOU FOR USING!");
                         break;
                     }
+                case "date":
+                    {
+                        try
+                        {
+                            object currdate = DateTime.Now;
+                            Console.WriteLine("Current date is: " + currdate);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.Beep();
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine(er + e.ToString());
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        break;
+                    }
+                case "pause":
+                    {
+                        Console.WriteLine("System Paused, Press any key to return.");
+                        Console.ReadKey();
+                        break;
+                    }
+                case "power":
+                    {
+                        power.start();
+                        break;
+                    }
             }
         }
     }
 
+    // idk
     public class csmOS
     {
         public static void clear()
